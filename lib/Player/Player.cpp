@@ -1,49 +1,34 @@
 #include "Player.h"
 
+#include <SoftwareSerial.h>
+SoftwareSerial softSerial(/*rx =*/4, /*tx =*/5);
+#define FPSerial softSerial
+
+
+// #if (defined(ARDUINO_AVR_UNO) || defined(ESP8266))   // Using a soft serial port
+// #include <SoftwareSerial.h>
+// SoftwareSerial softSerial(/*rx =*/4, /*tx =*/5);
+// #define FPSerial softSerial
+// #else
+// #define FPSerial Serial1
+// #endif
+
+String listeTouches= "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+int getElement(char c){
+  return listeTouches.indexOf(c);
+}
+
+
 Player::Player(){
-    // Adding key-value pairs to the hashtable
-    tableMappingTouche.put('0', 0);
-    tableMappingTouche.put('1', 1);
-    tableMappingTouche.put('2', 2);
-    tableMappingTouche.put('3', 3);
-    tableMappingTouche.put('4', 4);
-    tableMappingTouche.put('5', 5);
-    tableMappingTouche.put('6', 6);
-    tableMappingTouche.put('7', 7);
-    tableMappingTouche.put('8', 8);
-    tableMappingTouche.put('9', 9);
-    tableMappingTouche.put('A', 10);
-    tableMappingTouche.put('B', 11);
-    tableMappingTouche.put('C', 12);
-    tableMappingTouche.put('D', 13);
-    tableMappingTouche.put('E', 14);
-    tableMappingTouche.put('F', 15);
-    tableMappingTouche.put('G', 16);
-    tableMappingTouche.put('H', 17);
-    tableMappingTouche.put('I', 18);
-    tableMappingTouche.put('J', 19);
-    tableMappingTouche.put('K', 20);
-    tableMappingTouche.put('L', 21);
-    tableMappingTouche.put('M', 22);
-    tableMappingTouche.put('N', 23);
-    tableMappingTouche.put('O', 24);
-    tableMappingTouche.put('P', 25);
-    tableMappingTouche.put('Q', 26);
-    tableMappingTouche.put('R', 27);
-    tableMappingTouche.put('S', 28);
-    tableMappingTouche.put('T', 29);
-    tableMappingTouche.put('U', 30);
-    tableMappingTouche.put('V', 31);
-    tableMappingTouche.put('W', 32);
-    tableMappingTouche.put('X', 33);
-    tableMappingTouche.put('Y', 34);
-    tableMappingTouche.put('Z', 35);
+    current_folder = 1;
+
  
- #if (defined ESP32)
+#if (defined ESP32)
   FPSerial.begin(9600, SERIAL_8N1, /*rx =*/D3, /*tx =*/D2);
-    #else
+#else
   FPSerial.begin(9600);
-  #endif
+#endif
 
   Serial.begin(115200);
 
@@ -61,24 +46,86 @@ Player::Player(){
   }
   Serial.println(F("DFPlayer Mini online."));
   
-  myDFPlayer.volume(10);  //Set volume value. From 0 to 30
-  myDFPlayer.play(1);  //Play the first mp3
+  myDFPlayer.volume(20);  //Set volume value. From 0 to 30
+  myDFPlayer.disableLoopAll();
+  myDFPlayer.disableLoop();
+  
 
 }
 
-uint8_t Player::getIdMusic(char c) {
-    if (tableMappingTouche.containsKey(c)){
-        return tableMappingTouche.getElement(c);
+void Player::volumeUp() {
+  myDFPlayer.volumeUp();
+}
+
+void Player::volumeDown() {
+  myDFPlayer.volumeDown();
+}
+
+void Player::gererTouche(char key_pressed){
+    int id_key_pressed =  getElement(key_pressed);
+    
+    if (id_key_pressed < 0){
+      Serial.print(F("La touche pressee n'existe pas :"));
+      Serial.println(key_pressed);
+      return;
     }
-    Serial.print(F("Erreur de touche, caractère inconnu"));
-    Serial.println(c);
-    return 0;
+
+    
+    if (id_key_pressed <30)
+    {
+      myDFPlayer.playFolder(current_folder, id_key_pressed);
+    } else {
+      switch (id_key_pressed)
+      {
+         case 30: // vol down
+          this->volumeDown();
+          break;
+         case 31: // vol up
+          this->volumeUp();
+          break;
+         case 32: // prev folder
+          this->previousFolder();
+          break;
+         case 33: // next folder
+          this->nextFolder();
+          break;
+         case 34: // stop
+          myDFPlayer.stop();
+          break;
+         case 35:
+          
+          break;
+      
+        default:
+          break;
+      }
+    }
 }
+
+void Player::nextFolder(){
+  this->current_folder ++;
+  if (current_folder == 100){
+    current_folder = 0 ;
+  }
+}
+
+void Player::previousFolder(){
+  this->current_folder --;
+  if (current_folder == 0 ){
+    current_folder = 99;
+  }
+}
+
 
 void Player::playMusicInFolder(uint8_t directory, uint8_t element){
       myDFPlayer.playFolder(directory, element);  //play specific mp3 in SD:/15/004.mp3; Folder Name(1~99); File Name(1~255)
 }
 
+void Player::displayPlayerDetail(){
+  if (myDFPlayer.available()) {
+    printDetail(myDFPlayer.readType(), myDFPlayer.read()); //Print the detail message from DFPlayer to handle different errors and states.
+  }
+}
 
 void Player::printDetail(uint8_t type, int value)
 {

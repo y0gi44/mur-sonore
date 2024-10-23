@@ -3,26 +3,16 @@
 
 #include <Arduino.h>
 #include <DFRobotDFPlayerMini.h>
-#include <Hashtable.h>
-
-#if (defined(ARDUINO_AVR_UNO) || defined(ESP8266))   // Using a soft serial port
-#include <SoftwareSerial.h>
-SoftwareSerial softSerial(/*rx =*/4, /*tx =*/5);
-#define FPSerial softSerial
-#else
-#define FPSerial Serial1
-#endif
-
-DFRobotDFPlayerMini myDFPlayer;
 
 class Player {
 
 private:
-    Hashtable<char, uint8_t> tableMappingTouche ;
 
+    DFRobotDFPlayerMini myDFPlayer;
+    uint8_t current_folder;
 
 public:
-    Player() = default;
+    Player();
 
     String getIdMusic(char c);
 
@@ -30,7 +20,17 @@ public:
 
     void printDetail(uint8_t type, int value);
 
-}
 
+    void volumeUp();
+    void volumeDown();  
+
+    void setCurrentFolder(uint8_t current_folder);
+    uint8_t getCurrentFolder();
+    void nextFolder();
+    void previousFolder();
+    void gererTouche(char key_pressed);
+    void displayPlayerDetail();
+
+};
 
 #endif
