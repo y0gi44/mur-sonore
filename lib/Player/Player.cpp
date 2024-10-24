@@ -23,14 +23,8 @@ int getElement(char c){
 Player::Player(){
     current_folder = 1;
 
- 
-#if (defined ESP32)
-  FPSerial.begin(9600, SERIAL_8N1, /*rx =*/D3, /*tx =*/D2);
-#else
-  FPSerial.begin(9600);
-#endif
 
-  Serial.begin(115200);
+  FPSerial.begin(9600);
 
   Serial.println();
   Serial.println(F("DFRobot DFPlayer Mini Demo"));
@@ -47,9 +41,6 @@ Player::Player(){
   Serial.println(F("DFPlayer Mini online."));
   
   myDFPlayer.volume(20);  //Set volume value. From 0 to 30
-  myDFPlayer.disableLoopAll();
-  myDFPlayer.disableLoop();
-  
 
 }
 
@@ -73,24 +64,36 @@ void Player::gererTouche(char key_pressed){
     
     if (id_key_pressed <30)
     {
+      Serial.print(F(" playing folder "));
+      Serial.print(current_folder);
+      Serial.print(F(" item "));
+      Serial.println(id_key_pressed);
+
       myDFPlayer.playFolder(current_folder, id_key_pressed);
     } else {
       switch (id_key_pressed)
       {
          case 30: // vol down
+          Serial.println(F("Vol down"));
           this->volumeDown();
           break;
          case 31: // vol up
+         Serial.println(F("Vol up"));
           this->volumeUp();
           break;
          case 32: // prev folder
           this->previousFolder();
+          Serial.print(F("prev folder, current is now "));
+          Serial.println(current_folder);
           break;
          case 33: // next folder
           this->nextFolder();
+          Serial.println(F("next folder, current is now "));
+          Serial.println(current_folder);
           break;
          case 34: // stop
           myDFPlayer.stop();
+          Serial.println(F("Stop"));
           break;
          case 35:
           

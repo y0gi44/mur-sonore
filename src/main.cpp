@@ -17,21 +17,21 @@ void setup() {
 
 
 void loop() {
-    loopCount++;
-    if ( (millis()-startTime)>5000 ) {
-        Serial.print(F("Average loops per second = "));
-        Serial.println(loopCount/5);
-        startTime = millis();
-        loopCount = 0;
-    }
+    // loopCount++;
+    // if ( (millis()-startTime)>5000 ) {
+    //     Serial.print(F("Average loops per second = "));
+    //     Serial.println(loopCount/5);
+    //     startTime = millis();
+    //     loopCount = 0;
+    // }
 
     // Affichage des touches du keypad
-    keypad->displayKeypadInfo();
+    //keypad->displayKeypadInfo();
     char c = keypad->getFirstPressedChar();
+  
     if (c != '*') {
         player->gererTouche(c);
     }
 
     player->displayPlayerDetail();
-
 }  // End loop
