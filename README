@@ -1,0 +1,35 @@
+# Projet de mur sonore.
+
+## But du projet
+
+Réaliser un mur de 30 touches au dessus de petites pochettes.
+Chaque pochette permet de placer une image ou vignette en correspondance avec l'extrait sonore qui sera joué lors de l'appui sur la touche.
+
+Cela permet de faire un jeu d'apprentissage ludique pour les enfants de maternelle et élémentaire.
+
+## Ressources nécessaires 
+
+### Outils
+* Du temps et de la patience :-)
+* Une imprimante 3D (ou bricolage, mais l'imprimante 3D ça aide)
+* Un fer à souder
+* Une pince à sertir et des connecteurs dupont
+
+### Matériel
+* une plaque de bois de 80x60 cm de 5 mm d'épaisseur
+* une plaque de mdf de 80x60 cm de3mm d'épaisseur
+* du fil de cuivre rigide genre fil téléphonique
+* des petits boutons poussoir (x30)
+* Un module [DFPlayerMini](https://wiki.dfrobot.com/DFPlayer_Mini_SKU_DFR0299#target_6)
+* Une arduino nano
+* Une carte µSD
+* [Optionnel] Un module d'alimentation 5V avec une batterie litium (en option, sinon utiliser un chargeur de téléphone et un cable usb)
+* de la petite visserie M3x8 ou M2x8
+
+## Montage
+
+
+
+
+
+
