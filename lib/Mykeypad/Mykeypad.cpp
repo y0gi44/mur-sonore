@@ -15,28 +15,26 @@ char hexaKeys[ROWS][COLS] = {
 byte rowPins[ROWS] = {14, 15, 16, 17, 5, 6}; //connect to the row pinouts of the keypad
 byte colPins[COLS] = {12, 11, 10, 9, 8, 7}; //connect to the column pinouts of the keypad
 
+Keypad kpd = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
+
 
 MyKeypad::MyKeypad() {
     // initialisation du keypad
-    this->kpd = new Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS); 
     Serial.println("Initialisation keypad terminée");
 }
 
-Keypad * MyKeypad::getKeypad(){
-    return this->kpd;
-}
 
 void MyKeypad::displayKeypadInfo(){
     String msg = ""; 
     // Fills kpd.key[ ] array with up-to 10 active keys.
     // Returns true if there are ANY active keys.
-    if (kpd->getKeys())
+    if (kpd.getKeys())
     {
         for (int i=0; i<LIST_MAX; i++)   // Scan the whole key list.
         {
-            if ( kpd->key[i].stateChanged )   // Only find keys that have changed state.
+            if ( kpd.key[i].stateChanged )   // Only find keys that have changed state.
             {
-                switch (kpd->key[i].kstate) {  // Report active key state : IDLE, PRESSED, HOLD, or RELEASED
+                switch (kpd.key[i].kstate) {  // Report active key state : IDLE, PRESSED, HOLD, or RELEASED
                     case PRESSED:
                     msg = " PRESSED.";
                 break;
@@ -50,7 +48,7 @@ void MyKeypad::displayKeypadInfo(){
                     msg = " IDLE.";
                 }
                 Serial.print("Key ");
-                Serial.print(kpd->key[i].kchar);
+                Serial.print(kpd.key[i].kchar);
                 Serial.println(msg);
             }
         }
@@ -62,15 +60,15 @@ void MyKeypad::displayKeypadInfo(){
 char MyKeypad::getFirstPressedChar(){
     // Fills kpd.key[ ] array with up-to 10 active keys.
     // Returns true if there are ANY active keys.
-    if (kpd->getKeys())
+    if (kpd.getKeys())
     {
         for (int i=0; i<LIST_MAX; i++)   // Scan the whole key list.
         {
-            if ( kpd->key[i].stateChanged && kpd->key[i].kstate == PRESSED )   // Only find keys that have changed state.
+            if ( kpd.key[i].stateChanged && kpd.key[i].kstate == PRESSED )   // Only find keys that have changed state.
             {
-                return kpd->key[i].kchar;
+                return kpd.key[i].kchar;
                 Serial.print("Key ");
-                Serial.print(kpd->key[i].kchar);
+                Serial.print(kpd.key[i].kchar);
                 Serial.println(F(" PRESSED"));
             }
         }

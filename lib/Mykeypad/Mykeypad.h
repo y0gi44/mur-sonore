@@ -8,11 +8,8 @@
 
 class MyKeypad {
 
-  //Keypad kpd = Keypad( makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);;
-  Keypad * kpd;
   public:
     MyKeypad();      
-    Keypad * getKeypad();
 
     void displayKeypadInfo();
 
