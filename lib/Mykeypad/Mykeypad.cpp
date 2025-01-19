@@ -12,7 +12,7 @@ char hexaKeys[ROWS][COLS] = {
   {'O','P','Q','R','S','T'},
   {'U','V','W','X','Y','Z'},
 };
-byte rowPins[ROWS] = {14, 15, 16, 17, 18, 19}; //connect to the row pinouts of the keypad
+byte rowPins[ROWS] = {14, 15, 16, 17, 5, 6}; //connect to the row pinouts of the keypad
 byte colPins[COLS] = {12, 11, 10, 9, 8, 7}; //connect to the column pinouts of the keypad
 
 

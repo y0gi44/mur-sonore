@@ -10,6 +10,7 @@ private:
 
     DFRobotDFPlayerMini myDFPlayer;
     uint8_t current_folder;
+    uint8_t current_file;
 
 public:
     Player();
@@ -25,7 +26,9 @@ public:
     void volumeDown();  
 
     void setCurrentFolder(uint8_t current_folder);
-    uint8_t getCurrentFolder();
+    uint8_t getCurrentFolder() { return current_folder;};
+    uint8_t getCurrentFile(){ return current_file;};
+
     void nextFolder();
     void previousFolder();
     void gererTouche(char key_pressed);

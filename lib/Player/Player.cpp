@@ -1,7 +1,7 @@
 #include "Player.h"
 
 #include <SoftwareSerial.h>
-SoftwareSerial softSerial(/*rx =*/4, /*tx =*/5);
+SoftwareSerial softSerial(/*rx =*/2, /*tx =*/3);
 #define FPSerial softSerial
 
 
@@ -67,9 +67,11 @@ void Player::gererTouche(char key_pressed){
       Serial.print(F(" playing folder "));
       Serial.print(current_folder);
       Serial.print(F(" item "));
-      Serial.println(id_key_pressed);
+      current_file = 1+ id_key_pressed;
 
-      myDFPlayer.playFolder(current_folder, id_key_pressed);
+      Serial.println(current_file);
+
+      myDFPlayer.playFolder(current_folder, current_file);
     } else {
       switch (id_key_pressed)
       {
