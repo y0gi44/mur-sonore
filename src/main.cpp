@@ -14,8 +14,8 @@ Ecran * ecran;
 
 void setup() {
 
-    debug_init();
-    //Serial.begin(9600);
+    //debug_init();
+    Serial.begin(9600);
     loopCount = 0;
     startTime = millis();
     keypad = new MyKeypad();
