@@ -1,8 +1,8 @@
 #include "Player.h"
 
-#include <SoftwareSerial.h>
-SoftwareSerial softSerial(/*rx =*/2, /*tx =*/3);
-#define FPSerial softSerial
+//#include <SoftwareSerial.h>
+//SoftwareSerial softSerial(/*rx =*/4, /*tx =*/3);
+//#define FPSerial softSerial
 
 
 // #if (defined(ARDUINO_AVR_UNO) || defined(ESP8266))   // Using a soft serial port
@@ -10,7 +10,7 @@ SoftwareSerial softSerial(/*rx =*/2, /*tx =*/3);
 // SoftwareSerial softSerial(/*rx =*/4, /*tx =*/5);
 // #define FPSerial softSerial
 // #else
-// #define FPSerial Serial1
+ #define FPSerial Serial1
 // #endif
 
 String listeTouches= "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -151,10 +151,10 @@ void Player::printDetail(uint8_t type, int value)
       Serial.println(F("Card Online!"));
       break;
     case DFPlayerUSBInserted:
-      Serial.println("USB Inserted!");
+      Serial.println(F("USB Inserted!"));
       break;
     case DFPlayerUSBRemoved:
-      Serial.println("USB Removed!");
+      Serial.println(F("USB Removed!"));
       break;
     case DFPlayerPlayFinished:
       Serial.print(F("Number:"));

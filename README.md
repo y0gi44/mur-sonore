@@ -26,7 +26,7 @@ Cela permet de faire un jeu d'apprentissage ludique pour les enfants de maternel
 * du fil de cuivre rigide genre fil téléphonique
 * des petits [boutons poussoir](https://amzn.eu/d/gBY2v1u) (x30)&nbsp;&nbsp; <img src="./ressources/images/poussoir.jpg" width="40" >
 * Un module [DFPlayerMini](https://wiki.dfrobot.com/DFPlayer_Mini_SKU_DFR0299#target_6)
-* Une arduino nano
+* Une arduino nano (nano every pour utiliser l'écran Oled, la SSD1306 sature les 2 Ko RAM du micro controleur)
 * Une carte µSD
 * [Optionnel] Un module d'alimentation 5V avec une batterie litium (en option, sinon utiliser un chargeur de téléphone et un cable usb)
 * de la petite visserie M3x8 ou M2x8
@@ -71,4 +71,11 @@ Uploader le microprogramme sur la arduino nano
 
 
 
+# Configuration des broches des arduino
+
+arduino mega :  https://www.electronicshub.org/arduino-mega-pinout/
+
+arduino nano : https://www.electronicshub.org/arduino-nano-pinout/
+
+arduino nano every : https://docs.arduino.cc/hardware/nano-every/
 

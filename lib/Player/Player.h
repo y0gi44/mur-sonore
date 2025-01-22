@@ -25,7 +25,7 @@ public:
     void volumeUp();
     void volumeDown();  
 
-    void setCurrentFolder(uint8_t current_folder);
+    void setCurrentFolder(uint8_t current_folder) { this->current_folder = current_folder;};
     uint8_t getCurrentFolder() { return current_folder;};
     uint8_t getCurrentFile(){ return current_file;};
 
